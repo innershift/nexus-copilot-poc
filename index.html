@@ -10,14 +10,11 @@
       margin: 0;
       padding: 0;
       height: 100%;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #ffffff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    /* Password screen layout */
+    /* Password screen */
     #password-screen {
       height: 100vh;
       display: flex;
@@ -55,10 +52,6 @@
       border-color: #111827;
     }
 
-    #password-form button:hover {
-      filter: brightness(1.05);
-    }
-
     #password-error {
       color: #dc2626;
       font-size: 12px;
@@ -66,7 +59,7 @@
       margin: 0;
     }
 
-    /* App screen with full viewport iframe */
+    /* App screen */
     #app-screen.hidden {
       display: none;
     }
@@ -74,15 +67,46 @@
     #app-screen {
       width: 100vw;
       height: 100vh;
+      box-sizing: border-box;
     }
 
-    #chat {
-      width: 100vw;
-      height: 100vh;
+    /* Responsive margin wrapper */
+    #chat-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    /* Iframe full size inside wrapper */
+    #chat-iframe {
+      width: 100%;
+      height: calc(100vh - 48px); /* viewport height minus padding (top+bottom) */
       border: none;
-      display: block;
-      margin: 0;
-      padding: 0;
+      border-radius: 12px; /* remove if you want perfectly square edges */
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Tablet */
+    @media (min-width: 640px) {
+      #chat-wrapper {
+        padding: 32px;
+      }
+      #chat-iframe {
+        height: calc(100vh - 64px);
+      }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+      #chat-wrapper {
+        padding: 48px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      #chat-iframe {
+        height: calc(100vh - 96px);
+      }
     }
   </style>
 </head>
@@ -104,19 +128,21 @@
     </form>
   </div>
 
-  <!-- App Screen - only iframe -->
+  <!-- App Screen -->
   <div id="app-screen" class="hidden">
-    <iframe
-    src="https://www.chatbase.co/chatbot-iframe/Mrw2_1-uFFkSRItDoiIY0"
-    width="100%"
-    style="height: 100%; min-height: 700px"
-    frameborder="0"
-  ></iframe>
+    <div id="chat-wrapper">
+      <!-- Your actual Chatbase iframe -->
+      <iframe
+        id="chat-iframe"
+        src="https://www.chatbase.co/chatbot-iframe/Mrw2_1-uFFkSRItDoiIY0"
+        title="Nexus Co-Pilot"
+      ></iframe>
+    </div>
   </div>
 
   <script>
     // Set your password here
-    const PASSWORD = "staycurious";
+    const PASSWORD = "staycurious"; // <-- change this
 
     const passwordScreen = document.getElementById("password-screen");
     const appScreen = document.getElementById("app-screen");
@@ -142,5 +168,5 @@
     });
   </script>
 
-</bo
-::contentReference[oaicite:0]{index=0}
+</body>
+</html>
