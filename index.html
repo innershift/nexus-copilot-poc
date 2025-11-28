@@ -12,7 +12,7 @@
       height: 100%;
     }
 
-    /* Password screen – minimal styling */
+    /* Minimal password screen */
     #password-screen {
       max-width: 300px;
       margin: 20vh auto 0 auto;
@@ -22,4 +22,73 @@
     #password-error {
       color: red;
       display: none;
-      margin-to
+      margin-top: 0.5rem;
+    }
+
+    /* Chatbot container */
+    .iframe-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      height: 100vh;      /* fill viewport height */
+      display: none;      /* shown after password */
+      box-sizing: border-box;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;       /* fill wrapper, which is 100vh */
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Password prompt -->
+  <div id="password-screen">
+    <p>Please enter the password</p>
+    <input id="password-input" type="password" />
+    <button id="password-submit">Enter</button>
+    <div id="password-error">Incorrect password</div>
+  </div>
+
+  <!-- Chatbot iframe -->
+  <div class="iframe-wrapper" id="chat-container">
+    <iframe src="https://www.chatbase.co/chatbot-iframe/Mrw2_1-uFFkSRItDoiIY0"></iframe>
+  </div>
+
+  <script>
+    const input = document.getElementById("password-input");
+    const button = document.getElementById("password-submit");
+    const error = document.getElementById("password-error");
+    const screen = document.getElementById("password-screen");
+    const iframeWrapper = document.getElementById("chat-container");
+
+    function checkPassword() {
+      const entered = input.value.trim().toLowerCase();
+      if (entered === "staycurious") {
+        screen.style.display = "none";
+        iframeWrapper.style.display = "block";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    button.addEventListener("click", checkPassword);
+
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        checkPassword();
+      }
+    });
+
+    // Hide error when user starts typing again
+    input.addEventListener("input", () => {
+      if (error.style.display === "block") {
+        error.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
